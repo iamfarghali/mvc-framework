@@ -17,12 +17,16 @@ class Controller
 
      // Load View
      public function view($view, $data = []) {
-
+       
+        // To support 2 formats (pages/about) and (pages.about) when write view path.
+        $view = strpos($view, '.') ? str_replace('.', '/', $view) : $view;
+        
         if (file_exists('../app/views/' . $view . '.php')) {
             require_once '../app/views/' . $view . '.php';
+        } else {
+            // If View Not Exist
+            die('404 Page Not Found!');
         }
 
-        // If View Not Exist
-        die('404 Page Not Found!');
     }
 }

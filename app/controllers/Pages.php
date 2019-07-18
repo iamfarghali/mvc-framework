@@ -1,10 +1,10 @@
 <?php
 
-class Pages
+class Pages extends Controller
 {
     public $id = 1;
 
     public function index() {
-        echo __CLASS__;
+        $this->view('pages.index');
     }
 }
