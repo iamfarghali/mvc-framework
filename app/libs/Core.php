@@ -9,8 +9,6 @@
  class Core 
  {
     private const CONTROLLERS_PATH = '../app/controllers/';
-    private const MODELS_PATH      = '../app/models/';
-    private const VIEWS_PATH       = '../app/views/';
 
     protected $currentController = 'Pages';
     protected $currentMethod     = 'index';
