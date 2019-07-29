@@ -8,28 +8,24 @@
 
  class Core 
  {
-    private const CONTROLLERS_PATH = '../app/controllers/';
-
     protected $currentController = 'Pages';
     protected $currentMethod     = 'index';
     protected $params            = [];
 
-    public function __construct() {
+    public function __construct() {   
         // get url array
         $url = $this->getUrl();
 
         // pasre the url
         $this->parseUrl($url);
 
-        // load the controller
-        $this->loadController();
+        // load the controller and if loaded call the method.
+        $this->loadController() ? $this->callMethod() : $this->showError('404 Page Not Found', 'No controller named ' . $this->currentController);
 
-        // call the method
-        $this->callMethod();
     }
 
     private function getUrl() {
-        return isset($_GET['url']) ? explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL)) : false;
+        return isset($_GET['url']) ? explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL)) : [];
     }
 
     private function parseUrl($url) {
@@ -43,15 +39,31 @@
     }
 
     private function loadController() {
-        require_once self::CONTROLLERS_PATH . $this->currentController . '.php';
-        $this->currentController = new $this->currentController;
+        if (file_exists(APPROOT . 'controllers' . DS . $this->currentController . '.php')) {
+            require_once APPROOT . 'controllers' . DS . $this->currentController . '.php';
+            $this->currentController = new $this->currentController;
+            return true;
+        }
+        return false;
     }
 
     private function callMethod() {
         if (method_exists($this->currentController, $this->currentMethod)) {
             call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
         } else {
-            echo '404';
+            $this->showError('404 Page Not Found', 'No method named ' . $this->currentMethod);
+        }
+    }
+
+    private function showError($errMsg, $details = '') {
+        ?>
+            <h1 style="color:red; text-align:center; margin-top:50px;"><?=$errMsg?></h1><hr>
+        <?php
+
+        if (APPENV == 'DEV') {
+            ?>
+                <h2 style="color:#969694; text-align:left; margin-top:50px;">Details: <span style="color:red;"> <?= $details ?> </span> </h2>
+            <?php
         }
     }
 

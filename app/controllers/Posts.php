@@ -1,10 +1,18 @@
 <?php
 
-class Posts
+class Posts extends Controller
 {
-    public $id = 1;
+    private $model = null;
+
+    public function __construct() {
+        $this->model = $this->model('Post');
+
+        // echo '<pre>';
+        // print_r($this->model);
+        // echo '</pre>';
+    }
 
     public function index() {
-        echo __CLASS__;
+       
     }
 }

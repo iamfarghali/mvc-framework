@@ -2,9 +2,7 @@
 
 class Pages extends Controller
 {
-    public $id = 1;
-
     public function index() {
-        $this->view('pages.index');
+        $this->view('pages.index', ['title' => 'Homepage', 'welMsg' => 'Hi, There!']);
     }
 }

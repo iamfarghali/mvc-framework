@@ -5,8 +5,8 @@ class Controller
     // Load Model
     public function model($model) {
 
-        if (file_exists('../app/models/' . $model . '.php')) {
-            require_once '../app/models/' . $model . '.php';
+        if (file_exists(APPROOT . 'models' . DS . $model . '.php')) {
+            require_once APPROOT . 'models' . DS . $model . '.php';
             return new $model();
         }
 
@@ -21,8 +21,8 @@ class Controller
         // To support 2 formats (pages/about) and (pages.about) when write view path.
         $view = strpos($view, '.') ? str_replace('.', '/', $view) : $view;
         
-        if (file_exists('../app/views/' . $view . '.php')) {
-            require_once '../app/views/' . $view . '.php';
+        if (file_exists(APPROOT . 'views' . DS . $view . '.php')) {
+            require_once APPROOT . 'views' . DS . $view . '.php';
         } else {
             // If View Not Exist
             die('404 Page Not Found!');

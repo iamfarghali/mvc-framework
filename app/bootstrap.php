@@ -1,7 +1,9 @@
 <?php
+// Load Config
+require_once 'config/Config.php';
 
-require_once 'libs/Core.php';
-require_once 'libs/Database.php';
-require_once 'libs/Controller.php';
+// Autoloading libs classes
+spl_autoload_register(function($class) {
+    require_once 'libs/' . $class . '.php';
+});
 
-$init = new Core;
