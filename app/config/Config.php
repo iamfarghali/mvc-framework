@@ -20,7 +20,7 @@ define('APPENV', 'DEV');
 define('APPROOT', dirname(dirname(__FILE__)).DS);
 
 // URL Root
-define('APPURL', 'http://localhost/mvc-framework/');
+define('APPURL', '_YOUR_URL_');
 
 // Site Name
-define('SITENAME', 'MVC-Framework');
+define('SITENAME', '_YOUR_SITENAME_');
